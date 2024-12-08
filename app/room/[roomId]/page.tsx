@@ -5,6 +5,8 @@ import Block from "../../Block";
 import Othello from "../../Othello";
 import { cn } from "@/lib/utils";
 import { getGameState, getPlayer, setGameState } from "@/lib/actions/game";
+import { useRouter } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
 
 function ps(obj: any) {
   return JSON.parse(JSON.stringify(obj));
@@ -19,6 +21,7 @@ interface Props {
 export default function Game({ params }: Props) {
   const othelloRef = useRef(new Othello());
   const othello = othelloRef.current;
+  const router = useRouter();
 
   const [currentBoard, setCurrentBoard] = useState<string[][]>(ps(othello.currentBoard));
   const [currentPlayer, setCurrentPlayer] = useState<any>(ps(othello.currentPlayer));
@@ -116,9 +119,14 @@ export default function Game({ params }: Props) {
       <div className="flex flex-col gap-4">
         {/* Player Scores */}
 
-        <div>
-          <h1 className="font-bold text-3xl text-center">Room #{params.roomId}</h1>
-          {isGameOver && (winner ? <h4>{winner.name} Wins!</h4> : <h4>Draw</h4>)}
+        <div className="flex gap-4 justify-center items-center">
+          <div
+            className="p-2 border rounded-full h-8 w-8 flex justify-center items-center cursor-pointer hover:bg-zinc-900"
+            onClick={() => router.push("/")}
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </div>
+          <h1 className="font-bold text-3xl">Room #{params.roomId}</h1>
         </div>
 
         <div className="flex justify-between gap-5 items-center">
@@ -138,6 +146,8 @@ export default function Game({ params }: Props) {
             </div>
             <h4>{players.player1.name}</h4>
           </div>
+
+          {isGameOver && (winner ? <h4>{winner.name} Wins!</h4> : <h4>Draw</h4>)}
 
           <div
             className={cn(
