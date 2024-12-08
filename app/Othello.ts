@@ -260,7 +260,7 @@ export default class Othello {
     let x = i + 1;
     let y = j - 1;
     tempPositionsToTurn = [];
-    while (x < this.boardSize - 1 && y >= 0) {
+    while (x < this.boardSize && y >= 0) {
       if (this.currentBoard[x][y] === this.otherPlayer.move) {
         tempPositionsToTurn.push([x, y]);
       } else if (this.currentBoard[x][y] == this.currentPlayer.move) {
