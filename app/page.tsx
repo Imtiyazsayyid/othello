@@ -12,6 +12,7 @@ const JoinOrCreatePage = () => {
     roomId: "",
   });
   const router = useRouter();
+  //
 
   const handleJoinRoom = async () => {
     if (!room.name || !room.roomId) return;
